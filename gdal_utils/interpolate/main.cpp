@@ -3,8 +3,11 @@
 //#include <boost/PrettyOptionPrinter.hpp>
 #include <boost/program_options.hpp>
 #include "boost/filesystem.hpp"
-#include <gdal_priv.h>
-#include <cpl_conv.h> // for CPLMalloc()
+#include <gdal/gdal_priv.h>
+#include <gdal/cpl_conv.h> // for CPLMalloc()
+
+// Bilineal interpolation
+#include "bilineal.hpp"
 
 using namespace std;
 using namespace boost::program_options;
@@ -130,12 +133,12 @@ int main(int argc, char *argv[])
   int   nXSize = poBand->GetXSize();
   // static_cast<float *>
   pafScanline = (float *) CPLMalloc(sizeof(float)*nXSize);
-  poBand->RasterIO( GF_Read, 0, 0, nXSize, 1,
-                    pafScanline, nXSize, 1, GDT_Float32,
-                    0, 0 );
+  poBand->RasterIO( GF_Read, 0, 0, nXSize, 1, pafScanline, nXSize, 1, GDT_Float32, 0, 0 );
+  /*
   for( int cont = 0; cont < nXSize; cont++) {
         cout << "value of pafScanline: " << pafScanline[cont] << endl;
   }
+  */
   // Libero
   CPLFree(pafScanline);
   // Last close the dataset
