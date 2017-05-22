@@ -3,8 +3,8 @@
 //#include <boost/PrettyOptionPrinter.hpp>
 #include <boost/program_options.hpp>
 #include "boost/filesystem.hpp"
-#include <gdal/gdal_priv.h>
-#include <gdal/cpl_conv.h> // for CPLMalloc()
+#include <gdal_priv.h>
+#include <cpl_conv.h> // for CPLMalloc()
 
 // Bilineal interpolation
 #include "bilineal.hpp"
